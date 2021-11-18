@@ -58,8 +58,10 @@ func ErrorHandle(logger *zap.Logger, customHandle func(c *gin.Context, err error
 			return
 		}
 		// 自定义处理函数，一般用于业务错误
-		if customHandle(c, err) {
-			return
+		if customHandle != nil {
+			if customHandle(c, err) {
+				return
+			}
 		}
 
 		requestID := uuid.New()
