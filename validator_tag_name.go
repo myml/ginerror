@@ -15,7 +15,7 @@ import (
 func RegisterTagName() {
 	if v, ok := binding.Validator.Engine().(*validator.Validate); ok {
 		v.RegisterTagNameFunc(func(field reflect.StructField) string {
-			for _, tag := range []string{"uri", "form", "json"} {
+			for _, tag := range []string{"header", "uri", "form", "json"} {
 				v := field.Tag.Get(tag)
 				if len(v) > 0 {
 					return strings.Split(v, ",")[0]
