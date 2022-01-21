@@ -16,7 +16,7 @@ import (
 
 // Errorf 判断err是否为空
 // 如果err为空返回false，
-// 如果err不为空返回true，并执行记录堆栈，c.Error(fmt.Errorf(format, err)); c.Abort()。
+// 如果err不为空返回true，并执行c.Error c.Abort
 //
 // 可使用errors.As(err,ErrorStack) 取出堆栈信息
 //
@@ -43,7 +43,7 @@ func Errorf(c *gin.Context, format string, err error) bool {
 //
 // 使用Error()包裹错误后，可打印错误堆栈
 //
-// 参数错误返回code 400，并附带错误的字段和校验器 例子{"code": 400,"meesage": "validate error","fields": {"limit":"min"}}
+// 参数错误返回code 400，并附带错误的字段和校验器 例子 {"code": 400,"meesage": "validate error","fields": {"limit":"min"}}
 //
 // 数据库错误，当查询不到数据，返回code 404
 //
