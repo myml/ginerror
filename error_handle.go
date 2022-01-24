@@ -3,7 +3,6 @@ package ginerror
 import (
 	"errors"
 	"fmt"
-	"log"
 	"net/http"
 	"runtime"
 
@@ -67,7 +66,6 @@ func ErrorHandle(logger *zap.Logger, customHandle func(c *gin.Context, err error
 		requestID := uuid.New()
 
 		var es ErrorStack
-		log.Println(errors.As(err, &es))
 		if errors.As(err.Err, &es) {
 			logger.Error("ErrorHandle",
 				zap.String("requestID", requestID.String()),
@@ -82,6 +80,9 @@ func ErrorHandle(logger *zap.Logger, customHandle func(c *gin.Context, err error
 				zap.String("requestURI", c.Request.RequestURI),
 				zap.Error(err),
 			)
+		}
+		if c.Writer.Status() != 0 {
+			return
 		}
 
 		if errors.Is(err.Err, gorm.ErrRecordNotFound) {
