@@ -81,7 +81,7 @@ func ErrorHandle(logger *zap.Logger, customHandle func(c *gin.Context, err error
 				zap.Error(err),
 			)
 		}
-		if c.Writer.Status() != 0 {
+		if c.Writer.Status() != http.StatusOK {
 			return
 		}
 
