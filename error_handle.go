@@ -108,7 +108,6 @@ func ErrorHandle(logger *zap.Logger, customHandle func(c *gin.Context, err error
 			return
 		}
 		// 未知错误再打印一次
-		logger.Error("InternalServerError", zap.String("requestID", requestID.String()), zap.Error(err))
 		c.JSON(http.StatusInternalServerError, gin.H{
 			"code":      http.StatusInternalServerError,
 			"message":   "unknown error",
