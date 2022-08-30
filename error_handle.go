@@ -26,7 +26,7 @@ func Errorf(c *gin.Context, format string, err error) bool {
 	}
 	pc, filename, line, _ := runtime.Caller(1)
 	f := runtime.FuncForPC(pc)
-	c.Error(ErrorStack{
+	c.Error(&ErrorStack{
 		err:      fmt.Errorf(format, err),
 		function: f.Name(),
 		filename: fmt.Sprintf("%s:%d", filename, line),
@@ -65,7 +65,7 @@ func ErrorHandle(logger *zap.Logger, customHandle func(c *gin.Context, err error
 
 		requestID := uuid.New()
 
-		var es ErrorStack
+		var es *ErrorStack
 		if errors.As(err.Err, &es) {
 			logger.Error("ErrorHandle",
 				zap.String("requestID", requestID.String()),
